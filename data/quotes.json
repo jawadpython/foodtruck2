@@ -1,0 +1,22 @@
+[
+  {
+    "name": "dfvbfd",
+    "email": "admin@foodtruck.ma",
+    "phone": "0755555555",
+    "message": "dfbdfbfbdbdf",
+    "food_truck_id": 7,
+    "status": "pending",
+    "id": 1,
+    "created_at": "2025-10-05T13:35:00.064Z"
+  },
+  {
+    "name": "cvd",
+    "email": "asdsddmin@foodtruck.ma",
+    "phone": "0755555555s",
+    "message": "sdsdsd",
+    "food_truck_id": 6,
+    "status": "pending",
+    "id": 2,
+    "created_at": "2025-10-05T13:39:55.207Z"
+  }
+]

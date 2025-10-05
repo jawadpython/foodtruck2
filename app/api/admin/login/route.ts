@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
-import pool from '@/lib/database'
+import { getUserByEmail } from '@/lib/json-storage'
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,19 +14,14 @@ export async function POST(request: NextRequest) {
     }
 
     // Find user by email
-    const result = await pool.query(
-      'SELECT * FROM users WHERE email = $1',
-      [email]
-    )
+    const user = await getUserByEmail(email)
 
-    if (result.rows.length === 0) {
+    if (!user) {
       return NextResponse.json(
         { success: false, error: 'Invalid credentials' },
         { status: 401 }
       )
     }
-
-    const user = result.rows[0]
 
     // Verify password
     const isValidPassword = await bcrypt.compare(password, user.password)

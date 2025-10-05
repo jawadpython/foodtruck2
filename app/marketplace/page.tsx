@@ -7,6 +7,7 @@ import { motion } from 'framer-motion'
 import { Search, Filter, Truck, ArrowRight } from 'lucide-react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import QuoteModal from '@/components/QuoteModal'
 import { FoodTruck } from '@/types'
 
 export default function MarketplacePage() {
@@ -15,16 +16,19 @@ export default function MarketplacePage() {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [loading, setLoading] = useState(true)
+  const [showQuoteModal, setShowQuoteModal] = useState(false)
+  const [selectedTruck, setSelectedTruck] = useState<FoodTruck | null>(null)
 
   const categories = [
     'all',
-    'Pizza',
-    'Burger',
-    'Tacos',
-    'Sandwich',
-    'Dessert',
-    'Boissons',
-    'Autre'
+    'Vintage Food-Trucks',
+    'Food Trucks',
+    'Kiosque',
+    'Conteneur',
+    'Remorque',
+    'Modulaire',
+    'Mobile chef',
+    'Charrette'
   ]
 
   useEffect(() => {
@@ -56,6 +60,16 @@ export default function MarketplacePage() {
 
     setFilteredTrucks(filtered)
   }, [searchTerm, selectedCategory, trucks])
+
+  const handleQuoteRequest = (truck: FoodTruck) => {
+    setSelectedTruck(truck)
+    setShowQuoteModal(true)
+  }
+
+  const handleCloseQuoteModal = () => {
+    setShowQuoteModal(false)
+    setSelectedTruck(null)
+  }
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
@@ -183,7 +197,10 @@ export default function MarketplacePage() {
                       >
                         Voir détails
                       </Link>
-                      <button className="btn-secondary w-full">
+                      <button 
+                        onClick={() => handleQuoteRequest(truck)}
+                        className="btn-secondary w-full"
+                      >
                         Demander un devis
                       </button>
                     </div>
@@ -229,6 +246,15 @@ export default function MarketplacePage() {
       </section>
 
       <Footer />
+
+      {/* Quote Modal */}
+      {showQuoteModal && selectedTruck && (
+        <QuoteModal
+          truckId={selectedTruck.id}
+          truckTitle={selectedTruck.title}
+          onClose={handleCloseQuoteModal}
+        />
+      )}
     </div>
   )
 }

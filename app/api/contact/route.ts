@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import pool from '@/lib/database'
+import { createContactMessage } from '@/lib/json-storage'
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,14 +13,16 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const result = await pool.query(
-      'INSERT INTO contact_messages (name, email, phone, message) VALUES ($1, $2, $3, $4) RETURNING *',
-      [name, email, phone, message]
-    )
+    const newMessage = await createContactMessage({
+      name,
+      email,
+      phone: phone || '',
+      message
+    })
 
     return NextResponse.json({
       success: true,
-      data: result.rows[0]
+      data: newMessage
     })
   } catch (error) {
     console.error('Error creating contact message:', error)

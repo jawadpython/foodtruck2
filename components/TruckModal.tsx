@@ -134,13 +134,14 @@ export default function TruckModal({ truck, onClose, onSuccess }: TruckModalProp
   }
 
   const categories = [
-    'Pizza',
-    'Burger',
-    'Tacos',
-    'Sandwich',
-    'Dessert',
-    'Boissons',
-    'Autre'
+    'Vintage Food-Trucks',
+    'Food Trucks',
+    'Kiosque',
+    'Conteneur',
+    'Remorque',
+    'Modulaire',
+    'Mobile chef',
+    'Charrette'
   ]
 
   return (

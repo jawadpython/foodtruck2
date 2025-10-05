@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  food-truck-app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    volumes:
+      - ./data:/app/data
+      - ./public/images:/app/public/images
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/food-trucks"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

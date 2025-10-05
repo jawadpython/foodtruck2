@@ -28,7 +28,7 @@ Une plateforme moderne et performante pour la construction et la vente de food t
 - **Framework**: Next.js 14 (App Router)
 - **Styling**: TailwindCSS
 - **Animations**: Framer Motion
-- **Base de données**: PostgreSQL
+- **Stockage**: JSON local (fichiers)
 - **Authentification**: Sessions sécurisées
 - **Upload d'images**: Système local avec API optimisée
 - **TypeScript**: Typage complet
@@ -38,7 +38,6 @@ Une plateforme moderne et performante pour la construction et la vente de food t
 
 ### Prérequis
 - Node.js 18+
-- PostgreSQL 12+
 - npm ou yarn
 
 ### Configuration
@@ -54,36 +53,12 @@ cd food-truck-marketplace
 npm install
 ```
 
-3. **Configuration de la base de données**
-```bash
-# Créer la base de données PostgreSQL
-createdb foodtruck_marketplace
-
-# Copier le fichier d'environnement
-cp env.example .env.local
-```
-
-4. **Configurer les variables d'environnement**
-```env
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=foodtruck_marketplace
-DB_USER=postgres
-DB_PASSWORD=your_password
-NEXTAUTH_SECRET=your_secret_key_here
-NEXTAUTH_URL=http://localhost:3000
-```
-
-5. **Initialiser la base de données**
-```bash
-npm run dev
-# La base de données sera automatiquement initialisée au premier démarrage
-```
-
-6. **Démarrer le serveur de développement**
+3. **Démarrer l'application**
 ```bash
 npm run dev
 ```
+
+L'application utilise un système de stockage JSON local. Les données sont automatiquement créées dans le dossier `data/` lors du premier démarrage.
 
 ## 🔐 Accès Admin
 

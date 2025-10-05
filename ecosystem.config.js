@@ -5,8 +5,8 @@ module.exports = {
       script: 'npm',
       args: 'start',
       cwd: './',
-      instances: 'max',
-      exec_mode: 'cluster',
+      instances: 1,
+      exec_mode: 'fork',
       env: {
         NODE_ENV: 'production',
         PORT: 3000
@@ -15,12 +15,14 @@ module.exports = {
         NODE_ENV: 'production',
         PORT: 3000
       },
-      error_file: './logs/err.log',
-      out_file: './logs/out.log',
-      log_file: './logs/combined.log',
+      error_file: './err.log',
+      out_file: './out.log',
+      log_file: './combined.log',
       time: true,
       max_memory_restart: '1G',
-      node_args: '--max-old-space-size=1024'
+      node_args: '--max-old-space-size=1024',
+      restart_delay: 5000,
+      max_restarts: 5
     }
   ]
 }

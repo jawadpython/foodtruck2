@@ -1,0 +1,10 @@
+[
+  {
+    "id": 1,
+    "email": "admin@foodtruck.ma",
+    "password": "$2a$10$/K9NxKHhoiahB6EyJ6yLcOB.609qK4oP3MlUm0UbS9ow5dpmz1K06",
+    "name": "Admin",
+    "role": "admin",
+    "created_at": "2025-10-05T13:02:12.526Z"
+  }
+]

@@ -1,0 +1,72 @@
+[
+  {
+    "title": "Vintage",
+    "description": "Resto’Mov est votre guichet unique pour une entreprise de restauration mobile. Nous trouvons et sélectionnons à la main des véhicules d’époque uniques qui répondront à vos exigences.\n\nNotre vaste processus de restauration transformera une pièce de rouille en un diamant poli, qui, enfin, sera équipé de la meilleure installation de cuisine.\n\nLisez ci-dessous pour plus de détails sur notre cycle de projet.",
+    "category": "Vintage Food-Trucks",
+    "image_url": "/images/1759671036545-Vintage.jpg",
+    "specifications": {},
+    "id": 1,
+    "created_at": "2025-10-05T13:30:36.568Z",
+    "updated_at": "2025-10-05T13:30:36.568Z"
+  },
+  {
+    "title": "Food Trucks",
+    "description": "Le food truck devient de plus en plus tendance. Il acquiert une notoriété digne des grands restaurants français où la gastronomie et la gourmandise ont toujours fait bon ménage.\n\nResto’Mov vous propose de découvrir une palette impressionnante de possibilités pour votre camion magasin. Food truck, camion pizza, boulanger, glacier, friterie et autres camion boucherie charcuterie. Tous les métiers sont représentés chez Resto’Mov.\n\nChoisissez le type de camion magasin qui correspond le plus à vos besoins et demandez-nous le devis correspondant à votre choix.\n\n",
+    "category": "Food Trucks",
+    "image_url": "/images/1759671063274-Food_Trucks.jpg",
+    "specifications": {},
+    "id": 2,
+    "created_at": "2025-10-05T13:31:03.301Z",
+    "updated_at": "2025-10-05T13:31:03.301Z"
+  },
+  {
+    "title": "Kiosque",
+    "description": "A l’écoute de vos besoins, nous sommes force de proposition et nous vous apportons des solutions, afin de construire ensemble votre kiosque. Nous mettons en œuvre notre savoir-faire et notre expertise au service de votre réussite.\n\nTous nos produits sont contrôlés minutieusement à chaque étape de leur fabrication, nous nous engageons à respecter les délais impartis.\n\nEn étroite collaboration avec notre bureau d’étude, nous réalisons votre aménagement sur-mesure conformément au cahier des charges fixé.\n\nL’innovation est au cœur de notre vision, tournée vers l’avenir et adaptée à l’évolution des tendances.",
+    "category": "Kiosque",
+    "image_url": "/images/1759671115323-Kiosque.jpg",
+    "specifications": {},
+    "id": 3,
+    "created_at": "2025-10-05T13:31:55.347Z",
+    "updated_at": "2025-10-05T13:31:55.347Z"
+  },
+  {
+    "title": "Conteneurs",
+    "description": "Testez un marché, testez un lieu ou simplement déplacez-le au gré des événements. Le conteneur restaurant est la solution idéale en nomade ou en fixe.\n\nConstruit à partir d’un conteneur 20 pieds ou 40 pieds. Il peut accueillir des clients à l’intérieur ou depuis l’extérieur avec un comptoir aménagé et sa terrasse démontable.",
+    "category": "Conteneur",
+    "image_url": "/images/1759671135764-Conteneurs.jpg",
+    "specifications": {},
+    "id": 4,
+    "created_at": "2025-10-05T13:32:15.786Z",
+    "updated_at": "2025-10-05T13:32:15.786Z"
+  },
+  {
+    "title": "Remorque",
+    "description": "La remorque magasin a une histoire longue et glorieuse perpétuée pendant longtemps par les marchands ambulants.\n\nL’utilisation de remorques magasin résulte prometteuse dans plusieurs domaines, comme par exemple les sandwicheries ambulantes, les camions snack et restaurant lors de foires et d’événements divers, et le commerce de vêtements au détail.",
+    "category": "Remorque",
+    "image_url": "/images/1759671155727-Remorque.jpg",
+    "specifications": {},
+    "id": 5,
+    "created_at": "2025-10-05T13:32:35.745Z",
+    "updated_at": "2025-10-05T13:32:35.745Z"
+  },
+  {
+    "title": "Modulaire",
+    "description": "Nous proposons à la location des modules de cuisine, pour répondre à tous les besoins de la cuisine mobile temporaire. Ces modules s’installent pour quelques jours ou quelques mois en fonction de vos contraintes.\n\nNous intervenons dans différents secteurs tels que : hôpitaux, lycées et collèges, collectivités, maisons de retraire, événementiel.\n\nNos cuisines modulaires professionnelles s’articulent autour des différentes tâches.",
+    "category": "Modulaire",
+    "image_url": "/images/1759671176205-Modulaire.jpg",
+    "specifications": {},
+    "id": 6,
+    "created_at": "2025-10-05T13:32:56.227Z",
+    "updated_at": "2025-10-05T13:32:56.227Z"
+  },
+  {
+    "title": "Mobile chef",
+    "description": "Mobile Chef est une cuisine professionnelle ambulante, modulable et personnalisable.\n\nCe concept permet d’aller à la rencontre du consommateur, de cuisiner au plus près, au moment idéal, en choisissant l’activité culinaire adaptée.",
+    "category": "Mobile chef",
+    "image_url": "/images/1759671250302-mibile.jpg",
+    "specifications": {},
+    "id": 7,
+    "created_at": "2025-10-05T13:34:10.321Z",
+    "updated_at": "2025-10-05T13:34:10.321Z"
+  }
+]

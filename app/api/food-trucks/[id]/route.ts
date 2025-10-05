@@ -1,17 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
-import pool from '@/lib/database'
+import { getProductById, updateProduct, deleteProduct } from '@/lib/json-storage'
 
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
-    const result = await pool.query(
-      'SELECT * FROM food_trucks WHERE id = $1',
-      [params.id]
-    )
+    const id = parseInt(params.id)
+    const product = await getProductById(id)
 
-    if (result.rows.length === 0) {
+    if (!product) {
       return NextResponse.json(
         { success: false, error: 'Food truck not found' },
         { status: 404 }
@@ -20,7 +18,7 @@ export async function GET(
 
     return NextResponse.json({
       success: true,
-      data: result.rows[0]
+      data: product
     })
   } catch (error) {
     console.error('Error fetching food truck:', error)
@@ -36,15 +34,19 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
+    const id = parseInt(params.id)
     const body = await request.json()
     const { title, description, category, image_url, specifications } = body
 
-    const result = await pool.query(
-      'UPDATE food_trucks SET title = $1, description = $2, category = $3, image_url = $4, specifications = $5, updated_at = CURRENT_TIMESTAMP WHERE id = $6 RETURNING *',
-      [title, description, category, image_url, specifications, params.id]
-    )
+    const updatedProduct = await updateProduct(id, {
+      title,
+      description,
+      category,
+      image_url,
+      specifications
+    })
 
-    if (result.rows.length === 0) {
+    if (!updatedProduct) {
       return NextResponse.json(
         { success: false, error: 'Food truck not found' },
         { status: 404 }
@@ -53,7 +55,7 @@ export async function PUT(
 
     return NextResponse.json({
       success: true,
-      data: result.rows[0]
+      data: updatedProduct
     })
   } catch (error) {
     console.error('Error updating food truck:', error)
@@ -69,12 +71,10 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    const result = await pool.query(
-      'DELETE FROM food_trucks WHERE id = $1 RETURNING *',
-      [params.id]
-    )
+    const id = parseInt(params.id)
+    const deleted = await deleteProduct(id)
 
-    if (result.rows.length === 0) {
+    if (!deleted) {
       return NextResponse.json(
         { success: false, error: 'Food truck not found' },
         { status: 404 }

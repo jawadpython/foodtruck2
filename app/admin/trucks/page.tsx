@@ -29,13 +29,14 @@ export default function AdminTrucksPage() {
 
   const categories = [
     'all',
-    'Pizza',
-    'Burger',
-    'Tacos',
-    'Sandwich',
-    'Dessert',
-    'Boissons',
-    'Autre'
+    'Vintage Food-Trucks',
+    'Food Trucks',
+    'Kiosque',
+    'Conteneur',
+    'Remorque',
+    'Modulaire',
+    'Mobile chef',
+    'Charrette'
   ]
 
   useEffect(() => {

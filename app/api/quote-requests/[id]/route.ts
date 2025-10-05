@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
-import pool from '@/lib/database'
+import { updateQuoteRequest, deleteQuoteRequest } from '@/lib/json-storage'
 
 export async function PUT(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
+    const id = parseInt(params.id)
     const body = await request.json()
     const { status } = body
 
@@ -16,12 +17,9 @@ export async function PUT(
       )
     }
 
-    const result = await pool.query(
-      'UPDATE quote_requests SET status = $1 WHERE id = $2 RETURNING *',
-      [status, params.id]
-    )
+    const updatedQuote = await updateQuoteRequest(id, { status })
 
-    if (result.rows.length === 0) {
+    if (!updatedQuote) {
       return NextResponse.json(
         { success: false, error: 'Quote request not found' },
         { status: 404 }
@@ -30,7 +28,7 @@ export async function PUT(
 
     return NextResponse.json({
       success: true,
-      data: result.rows[0]
+      data: updatedQuote
     })
   } catch (error) {
     console.error('Error updating quote request:', error)
@@ -46,12 +44,10 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    const result = await pool.query(
-      'DELETE FROM quote_requests WHERE id = $1 RETURNING *',
-      [params.id]
-    )
+    const id = parseInt(params.id)
+    const deleted = await deleteQuoteRequest(id)
 
-    if (result.rows.length === 0) {
+    if (!deleted) {
       return NextResponse.json(
         { success: false, error: 'Quote request not found' },
         { status: 404 }

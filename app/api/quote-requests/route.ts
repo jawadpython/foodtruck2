@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import pool from '@/lib/database'
+import { getQuoteRequests, createQuoteRequest, getProducts } from '@/lib/json-storage'
 
 export async function GET(request: NextRequest) {
   try {
@@ -7,44 +7,35 @@ export async function GET(request: NextRequest) {
     const status = searchParams.get('status')
     const page = parseInt(searchParams.get('page') || '1')
     const limit = parseInt(searchParams.get('limit') || '10')
+
+    let quotes = await getQuoteRequests()
+    const products = await getProducts()
+
+    // Add food truck titles to quotes
+    quotes = quotes.map(quote => {
+      const product = products.find(p => p.id === quote.food_truck_id)
+      return {
+        ...quote,
+        food_truck_title: product?.title || 'Unknown'
+      }
+    })
+
+    // Apply status filter
+    if (status) {
+      quotes = quotes.filter(q => q.status === status)
+    }
+
+    // Sort by created_at descending
+    quotes.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+
+    // Apply pagination
+    const total = quotes.length
     const offset = (page - 1) * limit
-
-    let query = `
-      SELECT qr.*, ft.title as food_truck_title 
-      FROM quote_requests qr 
-      LEFT JOIN food_trucks ft ON qr.food_truck_id = ft.id
-    `
-    const queryParams: any[] = []
-    
-    if (status) {
-      query += ' WHERE qr.status = $1'
-      queryParams.push(status)
-    }
-    
-    query += ' ORDER BY qr.created_at DESC'
-    
-    if (limit > 0) {
-      query += ` LIMIT $${queryParams.length + 1} OFFSET $${queryParams.length + 2}`
-      queryParams.push(limit, offset)
-    }
-
-    const result = await pool.query(query, queryParams)
-    
-    // Get total count
-    let countQuery = 'SELECT COUNT(*) FROM quote_requests qr'
-    const countParams: any[] = []
-    
-    if (status) {
-      countQuery += ' WHERE qr.status = $1'
-      countParams.push(status)
-    }
-    
-    const countResult = await pool.query(countQuery, countParams)
-    const total = parseInt(countResult.rows[0].count)
+    const paginatedQuotes = limit > 0 ? quotes.slice(offset, offset + limit) : quotes
 
     return NextResponse.json({
       success: true,
-      data: result.rows,
+      data: paginatedQuotes,
       pagination: {
         page,
         limit,
@@ -73,14 +64,18 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const result = await pool.query(
-      'INSERT INTO quote_requests (name, email, phone, message, food_truck_id) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-      [name, email, phone, message, food_truck_id]
-    )
+    const newQuote = await createQuoteRequest({
+      name,
+      email,
+      phone,
+      message: message || '',
+      food_truck_id: food_truck_id ? parseInt(food_truck_id) : undefined,
+      status: 'pending'
+    })
 
     return NextResponse.json({
       success: true,
-      data: result.rows[0]
+      data: newQuote
     })
   } catch (error) {
     console.error('Error creating quote request:', error)
