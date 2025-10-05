@@ -16,6 +16,7 @@ export interface QuoteRequest {
   phone: string
   message?: string
   food_truck_id?: number
+  food_truck_title?: string
   status: 'pending' | 'in_progress' | 'completed'
   created_at: string
 }

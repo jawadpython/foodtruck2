@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getDatabase } from '@/lib/mockDatabase'
+import pool from '@/lib/database'
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,8 +13,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const db = await getDatabase()
-    const result = await db.query(
+    const result = await pool.query(
       'INSERT INTO contact_messages (name, email, phone, message) VALUES ($1, $2, $3, $4) RETURNING *',
       [name, email, phone, message]
     )

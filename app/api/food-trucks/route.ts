@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getDatabase } from '@/lib/mockDatabase'
+import pool from '@/lib/database'
 import { FoodTruck } from '@/types'
 
 export async function GET(request: NextRequest) {
@@ -34,8 +34,7 @@ export async function GET(request: NextRequest) {
 
     query += ' ORDER BY created_at DESC'
 
-    const db = await getDatabase()
-    const result = await db.query(query, params)
+    const result = await pool.query(query, params)
     
     return NextResponse.json({
       success: true,
@@ -62,8 +61,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const db = await getDatabase()
-    const result = await db.query(
+    const result = await pool.query(
       'INSERT INTO food_trucks (title, description, category, image_url, specifications) VALUES ($1, $2, $3, $4, $5) RETURNING *',
       [title, description, category, image_url, specifications]
     )

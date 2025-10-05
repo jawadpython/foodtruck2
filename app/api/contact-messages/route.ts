@@ -1,21 +1,33 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getDatabase } from '@/lib/mockDatabase'
+import pool from '@/lib/database'
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
     const page = parseInt(searchParams.get('page') || '1')
     const limit = parseInt(searchParams.get('limit') || '10')
+    const offset = (page - 1) * limit
 
-    // For now, return empty data since we don't have contact messages in mock data
+    const query = `
+      SELECT * FROM contact_messages 
+      ORDER BY created_at DESC
+      LIMIT $1 OFFSET $2
+    `
+    
+    const result = await pool.query(query, [limit, offset])
+    
+    // Get total count
+    const countResult = await pool.query('SELECT COUNT(*) FROM contact_messages')
+    const total = parseInt(countResult.rows[0].count)
+
     return NextResponse.json({
       success: true,
-      data: [],
+      data: result.rows,
       pagination: {
         page,
         limit,
-        total: 0,
-        pages: 0
+        total,
+        pages: Math.ceil(total / limit)
       }
     })
   } catch (error) {

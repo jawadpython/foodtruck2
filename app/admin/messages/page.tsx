@@ -11,7 +11,8 @@ import {
   User,
   Mail,
   Phone,
-  Reply
+  Reply,
+  X
 } from 'lucide-react'
 import AdminLayout from '@/components/AdminLayout'
 import { ContactMessage } from '@/types'

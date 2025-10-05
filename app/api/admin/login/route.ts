@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
-import { getDatabase } from '@/lib/mockDatabase'
+import pool from '@/lib/database'
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,8 +14,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Find user by email
-    const db = await getDatabase()
-    const result = await db.query(
+    const result = await pool.query(
       'SELECT * FROM users WHERE email = $1',
       [email]
     )

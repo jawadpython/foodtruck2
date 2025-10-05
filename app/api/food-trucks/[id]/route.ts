@@ -1,13 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getDatabase } from '@/lib/mockDatabase'
+import pool from '@/lib/database'
 
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
-    const db = await getDatabase()
-    const result = await db.query(
+    const result = await pool.query(
       'SELECT * FROM food_trucks WHERE id = $1',
       [params.id]
     )
@@ -40,8 +39,7 @@ export async function PUT(
     const body = await request.json()
     const { title, description, category, image_url, specifications } = body
 
-    const db = await getDatabase()
-    const result = await db.query(
+    const result = await pool.query(
       'UPDATE food_trucks SET title = $1, description = $2, category = $3, image_url = $4, specifications = $5, updated_at = CURRENT_TIMESTAMP WHERE id = $6 RETURNING *',
       [title, description, category, image_url, specifications, params.id]
     )
@@ -71,8 +69,7 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    const db = await getDatabase()
-    const result = await db.query(
+    const result = await pool.query(
       'DELETE FROM food_trucks WHERE id = $1 RETURNING *',
       [params.id]
     )
